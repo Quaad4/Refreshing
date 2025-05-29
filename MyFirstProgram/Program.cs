@@ -6,7 +6,7 @@ namespace MyFirstProgram
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("I Like pizza");
+            Console.WriteLine("this is the test branch for git");
         }
     }
 }
