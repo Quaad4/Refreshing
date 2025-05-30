@@ -6,20 +6,24 @@ namespace MyFirstProgram
     {
         private static void Main(string[] args)
         {
-            // a line is created after the line is written with writeline
-            Console.WriteLine("Hello!");
-            // This is a comment and no enter is added
-            Console.Write("Hey! ");
-            Console.WriteLine("Hey again on the same line!");
+            int age = 27;
+            double height = 183;
+            string name = "Alex";
+            bool alive = true;
+            char character = '@';
 
-            //tab
-            Console.WriteLine("Alex\tWood");
-            //backslash
-            Console.WriteLine("Alex\bWood");
-            //newline
-            Console.WriteLine("Alex\nWood");
+            Console.WriteLine(String.Concat(age, " ", name));
 
-            //await key input before ending program
+            Console.WriteLine(age + " " + name);
+
+            Console.WriteLine("Your height is: " + height);
+
+            if (alive)
+            {
+                Console.WriteLine("You are alive");
+            }
+
+            Console.WriteLine(character);
             Console.ReadKey();
         }
     }
