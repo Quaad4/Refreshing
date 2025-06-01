@@ -6,14 +6,22 @@ namespace MyFirstProgram
     {
         private static void Main(string[] args)
         {
-            Console.Write("Please write your name: ");
-            String name = Console.ReadLine();
+            bool isRunning = true;
+            int age = 0;
 
-            Console.WriteLine("Hello " + name + "! Welcome to my first program.");
+            do
+            {
+                try {
+                    Console.WriteLine("Enter your age: ");
+                    age = Convert.ToInt32(Console.ReadLine());
+                    isRunning = false;
+                } catch (Exception ex) {
+                    Console.WriteLine(ex);
+                    isRunning = true;
+                }
+            } while (isRunning);
 
-            Console.Write("What is your age? ");
-            int age = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("You are " + age + " years old!");
+            Console.WriteLine($"Your age is: {age}");
 
             Console.ReadKey();
         }
