@@ -6,30 +6,35 @@ namespace MyFirstProgram
     {
         private static void Main(string[] args)
         {
-            Random random = new Random();
-            int randomNumber = random.Next(1, 21); // Generates a random number between 1 and 21
-            double num = random.NextDouble(); // Generates a random double between 0.0 and 1.0
-            Console.WriteLine($"The random number generated is: {randomNumber}");
+            double side1 = 0;
+            double side2 = 0;
 
-            //Array and its size must be declared before it can be used
-            int[] numbers = new int[3];
-            //list is a dynamic array that can grow and shrink in size
-            List<int> myNums = new List<int>();
+            Console.WriteLine("Find the hypotenuse of a right triangle.");
 
-            for(int i = 0; i < 3; i++)
+            Console.WriteLine("Please Enter the length of the first side: ");
+
+            try
             {
-                //Use Add method to add elements to the list
-                //With a standard array, you would use numbers[i] = random.Next(1, 101);
-                myNums.Add(random.Next(1, 101));
+                side1 = Convert.ToDouble(Console.ReadLine());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred while reading input: " + ex.Message);
             }
 
-            Console.WriteLine("The random numbers generated are: ");
-            //Using a foreach loop to iterate through the list. Use Count property to get the number of elements in the list
-            //For a typical array, you would use numbers.Length to get the number of elements
-            for (int i = 0; i < myNums.Count; i++)
+            Console.WriteLine("Please Enter the length of the second side: ");
+
+            try
             {
-                Console.WriteLine(numbers[i]);
+                side2 = Convert.ToDouble(Console.ReadLine());
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred while reading input: " + ex.Message);
+            }
+
+            double res = Math.Round(Math.Sqrt(Math.Pow(side1, 2) + Math.Pow(side2, 2)), 1);
+            Console.WriteLine($"The hypotenuse is: {res}");
             Console.ReadKey();
         }
     }
