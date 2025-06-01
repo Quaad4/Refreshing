@@ -6,29 +6,30 @@ namespace MyFirstProgram
     {
         private static void Main(string[] args)
         {
-            double x = 3;
-            double y = 9;
-            double z = -3;
-            double a = 3.14;
+            Random random = new Random();
+            int randomNumber = random.Next(1, 21); // Generates a random number between 1 and 21
+            double num = random.NextDouble(); // Generates a random double between 0.0 and 1.0
+            Console.WriteLine($"The random number generated is: {randomNumber}");
 
-            double powerOf = Math.Pow(x, 2); // raises x to the power of 2 (x^2)
-            double squareRoot = Math.Sqrt(y); // returns the square root of a number
-            double absoluteValue = Math.Abs(z); // returns the absolute value of a number
-            double roundedValue = Math.Round(a, 1); // rounds to the closest tenth. The second argument efines the number of decimal places
-            double ceilingValue = Math.Ceiling(a); // rounds up to the nearest whole number
-            double floorValue = Math.Floor(a); // rounds down to the nearest whole number
-            double maxValue = Math.Max(x, y); // returns the maximum of two numbers
-            double minValue = Math.Min(x, y); // returns the minimum of two numbers
+            //Array and its size must be declared before it can be used
+            int[] numbers = new int[3];
+            //list is a dynamic array that can grow and shrink in size
+            List<int> myNums = new List<int>();
 
-            Console.WriteLine("The square of " + x + " is: " + powerOf); // Expected output: 9
-            Console.WriteLine("The square root of " + y + " is: " + squareRoot); // Expected output: 3
-            Console.WriteLine("The absolute value of " + z + " is: " + absoluteValue); // Expected output: 3
-            Console.WriteLine("The rounded value of " + a + " is: " + roundedValue); // Expected output: 3.1
-            Console.WriteLine("The ceiling value of " + a + " is: " + ceilingValue); // Expected output: 4
-            Console.WriteLine("The floor value of " + a + " is: " + floorValue); // Expected output: 3
-            Console.WriteLine("The maximum value between " + x + " and " + y + " is: " + maxValue); // Expected output: 9
-            Console.WriteLine("The minimum value between " + x + " and " + y + " is: " + minValue); // Expected output: 3
+            for(int i = 0; i < 3; i++)
+            {
+                //Use Add method to add elements to the list
+                //With a standard array, you would use numbers[i] = random.Next(1, 101);
+                myNums.Add(random.Next(1, 101));
+            }
 
+            Console.WriteLine("The random numbers generated are: ");
+            //Using a foreach loop to iterate through the list. Use Count property to get the number of elements in the list
+            //For a typical array, you would use numbers.Length to get the number of elements
+            for (int i = 0; i < myNums.Count; i++)
+            {
+                Console.WriteLine(numbers[i]);
+            }
             Console.ReadKey();
         }
     }
