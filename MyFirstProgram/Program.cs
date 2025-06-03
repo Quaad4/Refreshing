@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace MyFirstProgram
 {
@@ -7,29 +8,76 @@ namespace MyFirstProgram
         private static void Main(string[] args)
         {
             Random random = new Random();
-            int randomNumber = random.Next(1, 21); // Generates a random number between 1 and 21
-            double num = random.NextDouble(); // Generates a random double between 0.0 and 1.0
-            Console.WriteLine($"The random number generated is: {randomNumber}");
+            bool playing = true;
 
-            //Array and its size must be declared before it can be used
-            int[] numbers = new int[3];
-            //list is a dynamic array that can grow and shrink in size
-            List<int> myNums = new List<int>();
-
-            for(int i = 0; i < 3; i++)
+            while (playing)
             {
-                //Use Add method to add elements to the list
-                //With a standard array, you would use numbers[i] = random.Next(1, 101);
-                myNums.Add(random.Next(1, 101));
+                String computer;
+                String? player = "";
+                string? input = "";
+                bool validInput = false;
+
+                while (player != "ROCK" && player != "PAPER" && player != "SCISSORS")
+                {
+                    Console.Write("Pick between rock, paper, or scissors: ");
+                    try
+                    {
+                        player = Console.ReadLine();
+                        if(player == null)
+                        {
+                            continue;
+                        }
+                        player = player.ToUpper().Trim();
+                    } catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+
+                switch(random.Next(1, 4))
+                {
+                    case 1:
+                        computer = "ROCK";
+                        break;
+                    case 2:
+                        computer = "PAPER";
+                        break;
+                    case 3:
+                        computer = "SCISSORS";
+                        break;
+                }
+
+                do
+                {
+                    try
+                    {
+                        Console.Write("play again? (Y/N): ");
+                        input = Console.ReadLine();
+                        if(input == null)
+                        {
+                            continue;
+                        }
+                        input = input.ToUpper().Trim();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        validInput = false;
+                    }
+
+                    if(input == "N")
+                    {
+                        playing = false;
+                        validInput = true;
+                    } else if (input == "Y")
+                    {
+                        validInput = true;
+                    }
+                } while (!validInput);
+
             }
 
-            Console.WriteLine("The random numbers generated are: ");
-            //Using a foreach loop to iterate through the list. Use Count property to get the number of elements in the list
-            //For a typical array, you would use numbers.Length to get the number of elements
-            for (int i = 0; i < myNums.Count; i++)
-            {
-                Console.WriteLine(numbers[i]);
-            }
+            Console.WriteLine("Thanks for playing!");
             Console.ReadKey();
         }
     }
