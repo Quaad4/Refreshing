@@ -53,30 +53,33 @@ namespace MyFirstProgram
                     {
                         Console.Write("play again? (Y/N): ");
                         input = Console.ReadLine();
+
                         if(input == null)
                         {
                             continue;
                         }
+
                         input = input.ToUpper().Trim();
-                    }
-                    catch (Exception ex)
+
+                        switch (input)
+                        {
+                            case "Y":
+                                break;
+                            case "N":
+                                playing = false;
+                                break;
+                            default:
+                                continue;
+                        }
+
+                        validInput = true;
+
+                    } catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
                         validInput = false;
                     }
 
-                    switch(input)
-                    {
-                        case "Y":
-                            break;
-                        case "N":
-                            playing = false;
-                            break;
-                        default:
-                            continue;
-                    }
-
-                    validInput = true;
                 } while (!validInput);
 
             }
