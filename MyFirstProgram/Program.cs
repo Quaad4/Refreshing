@@ -12,7 +12,6 @@ namespace MyFirstProgram
             Random random = new Random();
             int guess = 0;
             int guessCount = 0;
-            String input;
 
             while (playing)
             {
@@ -52,9 +51,14 @@ namespace MyFirstProgram
                     try
                     {
                         Console.Write("Do you want to play again? (y/n): ");
-                        input = Console.ReadLine();
+                        string? input = Console.ReadLine();
+                        if (input == null)
+                        {
+                            Console.WriteLine("No input detected. Please try again.");
+                            continue;
+                        }
                         input = input.ToUpper();
-                        switch(input)
+                        switch (input)
                         {
                             case "Y":
                                 playing = true;
