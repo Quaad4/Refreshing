@@ -8,7 +8,6 @@ namespace MyFirstProgram
         {
             Console.WriteLine("Welcome to the number guessing game! ");
             bool playing = true;
-            bool validInput = false;
             Random random = new Random();
             int guess = 0;
             int guessCount = 0;
@@ -16,6 +15,7 @@ namespace MyFirstProgram
             while (playing)
             {
                 int numberToGuess = random.Next(1, 101); // Random number between 1 and 100
+                bool validInput = false;
 
                 while (guess != numberToGuess)
                 {
@@ -61,7 +61,6 @@ namespace MyFirstProgram
                         switch (input)
                         {
                             case "Y":
-                                playing = true;
                                 break;
                             case "N":
                                 playing = false;
