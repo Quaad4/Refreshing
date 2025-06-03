@@ -65,14 +65,18 @@ namespace MyFirstProgram
                         validInput = false;
                     }
 
-                    if(input == "N")
+                    switch(input)
                     {
-                        playing = false;
-                        validInput = true;
-                    } else if (input == "Y")
-                    {
-                        validInput = true;
+                        case "Y":
+                            break;
+                        case "N":
+                            playing = false;
+                            break;
+                        default:
+                            continue;
                     }
+
+                    validInput = true;
                 } while (!validInput);
 
             }
