@@ -6,31 +6,110 @@ namespace MyFirstProgram
     {
         private static void Main(string[] args)
         {
-            Random random = new Random();
-            int randomNumber = random.Next(1, 21); // Generates a random number between 1 and 21
-            double num = random.NextDouble(); // Generates a random double between 0.0 and 1.0
-            Console.WriteLine($"The random number generated is: {randomNumber}");
+            Car car = new Car("Toyota", "Red");
+            //car.Start(); // Calls the overridden method in Car class
+            //Console.WriteLine(car.make);
+            Console.WriteLine(car);
 
-            //Array and its size must be declared before it can be used
-            int[] numbers = new int[3];
-            //list is a dynamic array that can grow and shrink in size
-            List<int> myNums = new List<int>();
+            // using polymorphism to create an array of Vehicle objects
+            Vehicle[] vehicles = { new Car("Toyota", "Red"), new Boat(), new Bicycle() };
 
-            for(int i = 0; i < 3; i++)
+            Console.WriteLine($"There are currently {Vehicle.GetVehicleCount()} vehicles.");
+
+            Car car2 = Copy(car); // Copying car using the copy method
+            ChangeColour(car2, "Blue"); // Changing the colour of the copied car
+            Console.WriteLine(car2);
+
+            //outputting using polymorphism
+            foreach (Vehicle vehicle in vehicles)
             {
-                //Use Add method to add elements to the list
-                //With a standard array, you would use numbers[i] = random.Next(1, 101);
-                myNums.Add(random.Next(1, 101));
+                vehicle.Start(); // Calls the overridden method based on the actual object type
             }
 
-            Console.WriteLine("The random numbers generated are: ");
-            //Using a foreach loop to iterate through the list. Use Count property to get the number of elements in the list
-            //For a typical array, you would use numbers.Length to get the number of elements
-            for (int i = 0; i < myNums.Count; i++)
-            {
-                Console.WriteLine(numbers[i]);
-            }
             Console.ReadKey();
         }
+        public static Car Copy(Car car)
+        {
+            return new Car(car.GetMake(), car.GetColour());
+        }
+
+        public static void ChangeColour(Car car, string colour)
+        {
+            car.SetColour(colour);
+        }
     }
+
+    abstract class Vehicle 
+    {
+        private readonly int baseSpeed = 30; //other classes can no longer change this value
+        private static int vehicleCount = 0;
+        public Vehicle()
+        {
+            vehicleCount++;
+        }
+        public abstract void Start();
+
+        static public int GetVehicleCount()
+        {
+            return vehicleCount;
+        }
+    }
+
+    class Car : Vehicle
+    {
+        private readonly int maxSpeed = 200;
+        private string make;
+        private string colour;
+
+        public Car(string make, string colour)
+        {
+            SetMake(make);
+            SetColour(colour);
+        }
+        public override void Start()
+        {
+            Console.WriteLine("The car is moving at a speed of " + maxSpeed + " km/h.");
+        }
+        public int GetMaxSpeed()
+        {
+            return maxSpeed;
+        }
+        public void SetMake(string make)
+        {
+            this.make = make;
+        }
+        public string GetMake()
+        {
+            return this.make;
+        }
+        public void SetColour(string colour)
+        {
+            this.colour = colour;
+        }
+        public string GetColour()
+        {
+            return this.colour;
+        }
+        public override string ToString()
+        {
+            return $"Car Make: {GetMake()}, Colour: {GetColour()}, Max Speed: {GetMaxSpeed()} km/h";
+        }
+    }
+
+    class Boat : Vehicle
+    {
+        public override void Start()
+        {
+            Console.WriteLine("The boat is sailing on the water.");
+        }
+    }
+
+    class Bicycle : Vehicle
+    {
+        public override void Start()
+        {
+            Console.WriteLine("The bicycle is pedaling forward.");
+        }
+    }
+
 }
