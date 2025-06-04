@@ -7,38 +7,49 @@ namespace MyFirstProgram
         private static void Main(string[] args)
         {
             Car car = new Car("Toyota", "Red");
-            //car.start(); // Calls the overridden method in Car class
+            //car.Start(); // Calls the overridden method in Car class
             //Console.WriteLine(car.make);
             Console.WriteLine(car);
 
             // using polymorphism to create an array of Vehicle objects
             Vehicle[] vehicles = { new Car("Toyota", "Red"), new Boat(), new Bicycle() };
 
-            Console.WriteLine($"There are currently {Vehicle.getVehicleCount()} vehicles.");
+            Console.WriteLine($"There are currently {Vehicle.GetVehicleCount()} vehicles.");
+
+            Car car2 = Copy(car); // Copying car using the copy method
+            ChangeColour(car2, "Blue"); // Changing the colour of the copied car
+            Console.WriteLine(car2);
 
             //outputting using polymorphism
             foreach (Vehicle vehicle in vehicles)
             {
-                vehicle.start(); // Calls the overridden method based on the actual object type
+                vehicle.Start(); // Calls the overridden method based on the actual object type
             }
 
             Console.ReadKey();
+        }
+        public static Car Copy(Car car)
+        {
+            return new Car(car.GetMake(), car.GetColour());
+        }
+
+        public static void ChangeColour(Car car, string colour)
+        {
+            car.SetColour(colour);
         }
     }
 
     abstract class Vehicle 
     {
-        int speed;
-        protected static int vehicleCount = 0;
+        private readonly int baseSpeed = 30; //other classes can no longer change this value
+        private static int vehicleCount = 0;
         public Vehicle()
         {
             vehicleCount++;
         }
-        public virtual void start()
-        {
-            Console.WriteLine("The vehicle is moving.");
-        }
-        static public int getVehicleCount()
+        public abstract void Start();
+
+        static public int GetVehicleCount()
         {
             return vehicleCount;
         }
@@ -46,48 +57,48 @@ namespace MyFirstProgram
 
     class Car : Vehicle
     {
-        protected int maxSpeed = 200;
-        protected String make;
-        protected String colour;
+        private readonly int maxSpeed = 200;
+        private string make;
+        private string colour;
 
-        public Car(String make, String colour)
+        public Car(string make, string colour)
         {
-            setMake(make);
-            setColour(colour);
+            SetMake(make);
+            SetColour(colour);
         }
-        public override void start()
+        public override void Start()
         {
             Console.WriteLine("The car is moving at a speed of " + maxSpeed + " km/h.");
         }
-        public int getMaxSpeed()
+        public int GetMaxSpeed()
         {
             return maxSpeed;
         }
-        public void setMake(String make)
+        public void SetMake(string make)
         {
             this.make = make;
         }
-        public String getMake()
+        public string GetMake()
         {
             return this.make;
         }
-        public void setColour(String colour)
+        public void SetColour(string colour)
         {
             this.colour = colour;
         }
-        public String getColour()
+        public string GetColour()
         {
             return this.colour;
         }
         public override string ToString()
         {
-            return $"Car Make: {getMake()}, Colour: {getColour()}, Max Speed: {getMaxSpeed()} km/h";
+            return $"Car Make: {GetMake()}, Colour: {GetColour()}, Max Speed: {GetMaxSpeed()} km/h";
         }
     }
 
     class Boat : Vehicle
     {
-        public override void start()
+        public override void Start()
         {
             Console.WriteLine("The boat is sailing on the water.");
         }
@@ -95,7 +106,7 @@ namespace MyFirstProgram
 
     class Bicycle : Vehicle
     {
-        public override void start()
+        public override void Start()
         {
             Console.WriteLine("The bicycle is pedaling forward.");
         }
