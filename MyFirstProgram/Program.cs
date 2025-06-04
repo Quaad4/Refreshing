@@ -10,6 +10,7 @@ namespace MyFirstProgram
             //car.Start(); // Calls the overridden method in Car class
             //Console.WriteLine(car.make);
             Console.WriteLine(car);
+            Console.WriteLine($"There are currently {Vehicle.GetVehicleCount()} vehicles.");
 
             // using polymorphism to create an array of Vehicle objects
             Vehicle[] vehicles = { new Car("Toyota", "Red"), new Boat(), new Bicycle() };
@@ -17,6 +18,8 @@ namespace MyFirstProgram
             Console.WriteLine($"There are currently {Vehicle.GetVehicleCount()} vehicles.");
 
             Car car2 = Copy(car); // Copying car using the copy method
+            Console.WriteLine($"There are currently {Vehicle.GetVehicleCount()} vehicles.");
+
             ChangeColour(car2, "Blue"); // Changing the colour of the copied car
             Console.WriteLine(car2);
 
