@@ -6,31 +6,99 @@ namespace MyFirstProgram
     {
         private static void Main(string[] args)
         {
-            Random random = new Random();
-            int randomNumber = random.Next(1, 21); // Generates a random number between 1 and 21
-            double num = random.NextDouble(); // Generates a random double between 0.0 and 1.0
-            Console.WriteLine($"The random number generated is: {randomNumber}");
+            Car car = new Car("Toyota", "Red");
+            //car.start(); // Calls the overridden method in Car class
+            //Console.WriteLine(car.make);
+            Console.WriteLine(car);
 
-            //Array and its size must be declared before it can be used
-            int[] numbers = new int[3];
-            //list is a dynamic array that can grow and shrink in size
-            List<int> myNums = new List<int>();
+            // using polymorphism to create an array of Vehicle objects
+            Vehicle[] vehicles = { new Car("Toyota", "Red"), new Boat(), new Bicycle() };
 
-            for(int i = 0; i < 3; i++)
+            Console.WriteLine($"There are currently {Vehicle.getVehicleCount()} vehicles.");
+
+            //outputting using polymorphism
+            foreach (Vehicle vehicle in vehicles)
             {
-                //Use Add method to add elements to the list
-                //With a standard array, you would use numbers[i] = random.Next(1, 101);
-                myNums.Add(random.Next(1, 101));
+                vehicle.start(); // Calls the overridden method based on the actual object type
             }
 
-            Console.WriteLine("The random numbers generated are: ");
-            //Using a foreach loop to iterate through the list. Use Count property to get the number of elements in the list
-            //For a typical array, you would use numbers.Length to get the number of elements
-            for (int i = 0; i < myNums.Count; i++)
-            {
-                Console.WriteLine(numbers[i]);
-            }
             Console.ReadKey();
         }
     }
+
+    abstract class Vehicle 
+    {
+        int speed;
+        protected static int vehicleCount = 0;
+        public Vehicle()
+        {
+            vehicleCount++;
+        }
+        public virtual void start()
+        {
+            Console.WriteLine("The vehicle is moving.");
+        }
+        static public int getVehicleCount()
+        {
+            return vehicleCount;
+        }
+    }
+
+    class Car : Vehicle
+    {
+        protected int maxSpeed = 200;
+        protected String make;
+        protected String colour;
+
+        public Car(String make, String colour)
+        {
+            setMake(make);
+            setColour(colour);
+        }
+        public override void start()
+        {
+            Console.WriteLine("The car is moving at a speed of " + maxSpeed + " km/h.");
+        }
+        public int getMaxSpeed()
+        {
+            return maxSpeed;
+        }
+        public void setMake(String make)
+        {
+            this.make = make;
+        }
+        public String getMake()
+        {
+            return this.make;
+        }
+        public void setColour(String colour)
+        {
+            this.colour = colour;
+        }
+        public String getColour()
+        {
+            return this.colour;
+        }
+        public override string ToString()
+        {
+            return $"Car Make: {getMake()}, Colour: {getColour()}, Max Speed: {getMaxSpeed()} km/h";
+        }
+    }
+
+    class Boat : Vehicle
+    {
+        public override void start()
+        {
+            Console.WriteLine("The boat is sailing on the water.");
+        }
+    }
+
+    class Bicycle : Vehicle
+    {
+        public override void start()
+        {
+            Console.WriteLine("The bicycle is pedaling forward.");
+        }
+    }
+
 }
