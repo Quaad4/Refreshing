@@ -13,7 +13,7 @@ namespace MyFirstProgram
             Console.WriteLine($"There are currently {Vehicle.GetVehicleCount()} vehicles.");
 
             // using polymorphism to create an array of Vehicle objects
-            Vehicle[] vehicles = { new Car("Toyota", "Red"), new Boat(), new Bicycle() };
+            List<Vehicle> vehicles = new List<Vehicle> { new Car("Toyota", "Red"), new Boat(), new Bicycle() };
 
             Console.WriteLine($"There are currently {Vehicle.GetVehicleCount()} vehicles.");
 
@@ -33,18 +33,18 @@ namespace MyFirstProgram
         }
         public static Car Copy(Car car)
         {
-            return new Car(car.GetMake(), car.GetColour());
+            return new Car(car.Make, car.Colour);
         }
 
         public static void ChangeColour(Car car, string colour)
         {
-            car.SetColour(colour);
+            car.Colour = colour;
         }
     }
 
     abstract class Vehicle 
     {
-        private readonly int baseSpeed = 30; //other classes can no longer change this value
+        private const int baseSpeed = 30; //other classes can no longer change this value
         private static int vehicleCount = 0;
         public Vehicle()
         {
@@ -61,13 +61,13 @@ namespace MyFirstProgram
     class Car : Vehicle
     {
         private readonly int maxSpeed = 200;
-        private string make;
-        private string colour;
+        public string Make { get; set; }
+        public string Colour { get; set; }
 
         public Car(string make, string colour)
         {
-            SetMake(make);
-            SetColour(colour);
+            this.Colour = colour;
+            this.Make = make;
         }
         public override void Start()
         {
@@ -77,25 +77,9 @@ namespace MyFirstProgram
         {
             return maxSpeed;
         }
-        public void SetMake(string make)
-        {
-            this.make = make;
-        }
-        public string GetMake()
-        {
-            return this.make;
-        }
-        public void SetColour(string colour)
-        {
-            this.colour = colour;
-        }
-        public string GetColour()
-        {
-            return this.colour;
-        }
         public override string ToString()
         {
-            return $"Car Make: {GetMake()}, Colour: {GetColour()}, Max Speed: {GetMaxSpeed()} km/h";
+            return $"Car Make: {Make}, Colour: {Colour}, Max Speed: {GetMaxSpeed()} km/h";
         }
     }
 
