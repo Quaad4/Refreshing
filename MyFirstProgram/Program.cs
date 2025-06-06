@@ -58,17 +58,12 @@ namespace MyFirstProgram
         }
     }
 
-    class Car : Vehicle
+    class Car(string make, string colour) : Vehicle
     {
         private readonly int maxSpeed = 200;
-        public string Make { get; set; }
-        public string Colour { get; set; }
+        public string Make { get; set; } = make;
+        public string Colour { get; set; } = colour;
 
-        public Car(string make, string colour)
-        {
-            this.Colour = colour;
-            this.Make = make;
-        }
         public override void Start()
         {
             Console.WriteLine("The car is moving at a speed of " + maxSpeed + " km/h.");
