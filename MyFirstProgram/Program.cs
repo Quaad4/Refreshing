@@ -2,96 +2,99 @@
 
 namespace MyFirstProgram
 {
-   class Program
+    class Program
     {
         private static void Main(string[] args)
         {
-            Car car = new Car("Toyota", "Red");
-            //car.Start(); // Calls the overridden method in Car class
-            //Console.WriteLine(car.make);
-            Console.WriteLine(car);
-            Console.WriteLine($"There are currently {Vehicle.GetVehicleCount()} vehicles.");
+            Car car = new();
+            Bike bike = new();
+            Truck truck = new();
+            Aeroplane aeroplane = new();
+            Boat boat = new();
 
-            // using polymorphism to create an array of Vehicle objects
-            List<Vehicle> vehicles = new List<Vehicle> { new Car("Toyota", "Red"), new Boat(), new Bicycle() };
+            Vehicle[] vehicles = { car, bike, truck, aeroplane, boat };
 
-            Console.WriteLine($"There are currently {Vehicle.GetVehicleCount()} vehicles.");
-
-            Car car2 = Copy(car); // Copying car using the copy method
-            Console.WriteLine($"There are currently {Vehicle.GetVehicleCount()} vehicles.");
-
-            ChangeColour(car2, "Blue"); // Changing the colour of the copied car
-            Console.WriteLine(car2);
-
-            //outputting using polymorphism
-            foreach (Vehicle vehicle in vehicles)
+            foreach(Vehicle vehicle in vehicles)
             {
-                vehicle.Start(); // Calls the overridden method based on the actual object type
+                vehicle.Move();
             }
+
+            CountNumberOfWheels(vehicles);
 
             Console.ReadKey();
         }
-        public static Car Copy(Car car)
-        {
-            return new Car(car.Make, car.Colour);
-        }
 
-        public static void ChangeColour(Car car, string colour)
+        public static void CountNumberOfWheels<T>(T[] vehicles)
         {
-            car.Colour = colour;
+            foreach (T vehicle in vehicles)
+            {
+                Console.WriteLine($"This vehicle has {vehicle} wheels.");
+            }
         }
     }
 
-    abstract class Vehicle 
+    abstract class Vehicle
     {
-        private const int baseSpeed = 30; //other classes can no longer change this value
-        private static int vehicleCount = 0;
-        public Vehicle()
-        {
-            vehicleCount++;
-        }
-        public abstract void Start();
+        private const int maxSpeed = 500;
 
-        static public int GetVehicleCount()
+        protected int wheels = 0;
+
+        public abstract void Move();
+    }
+    
+    class Car : Vehicle
+    {
+        public Car()
         {
-            return vehicleCount;
+            this.wheels = 4;
+        }
+        public override void Move()
+        {
+            Console.WriteLine("The car is moving at a speed of 100 km/h.");
         }
     }
 
-    class Car(string make, string colour) : Vehicle
+    class Bike : Vehicle
     {
-        private readonly int maxSpeed = 200;
-        public string Make { get; set; } = make;
-        public string Colour { get; set; } = colour;
+        public Bike()
+        {
+            this.wheels = 2;
+        }
+        public override void Move()
+        {
+            Console.WriteLine("The bike is moving at a speed of 20 km/h.");
+        }
+    }
 
-        public override void Start()
+    class Truck : Vehicle
+    {
+        public Truck()
         {
-            Console.WriteLine("The car is moving at a speed of " + maxSpeed + " km/h.");
+            this.wheels = 4;
         }
-        public int GetMaxSpeed()
+        public override void Move()
         {
-            return maxSpeed;
+            Console.WriteLine("The truck is moving at a speed of 80 km/h.");
         }
-        public override string ToString()
+    }
+
+    class Aeroplane : Vehicle
+    {
+        public Aeroplane()
         {
-            return $"Car Make: {Make}, Colour: {Colour}, Max Speed: {GetMaxSpeed()} km/h";
+            this.wheels = 3;
+        }
+        public override void Move()
+        {
+            Console.WriteLine("The aeroplane is flying at a speed of 500 km/h.");
         }
     }
 
     class Boat : Vehicle
     {
-        public override void Start()
+        public override void Move()
         {
-            Console.WriteLine("The boat is sailing on the water.");
+            Console.WriteLine("The boat is sailing at a speed of 30 km/h.");
         }
     }
-
-    class Bicycle : Vehicle
-    {
-        public override void Start()
-        {
-            Console.WriteLine("The bicycle is pedaling forward.");
-        }
-    }
-
 }
