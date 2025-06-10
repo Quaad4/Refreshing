@@ -6,28 +6,16 @@ namespace MyFirstProgram
     {
         private static void Main(string[] args)
         {
-            bool isValid = true;
-            string validatePassword = string.Empty;
-            string password = string.Empty;
+            
+            Console.Write("Enter a Number: ");
 
-            Console.Write("Hello, please enter  your password: ");
-            password = Console.ReadLine();
-            Console.Write("Please repeat your password: ");
-            validatePassword = Console.ReadLine();
-
-            if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(validatePassword))
+            if (int.TryParse(Console.ReadLine(), out int userInput))
             {
-                Console.WriteLine("You did not enter a valid password.");
-                isValid = false;
+                Console.WriteLine($"You entered: {userInput}");
             }
-
-            if(password.Equals(validatePassword) && isValid)
-            {
-                Console.WriteLine("Welcome");
-            } 
             else
             {
-                Console.WriteLine("The passwords do not match. Please try again.");
+                Console.WriteLine("You did not enter a number or entered 0, which is not a valid number.");
             }
 
             Console.ReadKey();
