@@ -6,29 +6,48 @@ namespace MyFirstProgram
     {
         private static void Main(string[] args)
         {
-            Car car = new();
+            Car car = new(4);
+            Car car2 = new(4);
+            Car car3 = new(3);
+
             Bike bike = new();
             Truck truck = new();
             Aeroplane aeroplane = new();
             Boat boat = new();
 
             Vehicle[] vehicles = { car, bike, truck, aeroplane, boat };
+            Car[] cars = { car, car2, car3 };
 
-            foreach(Vehicle vehicle in vehicles)
-            {
-                vehicle.Move();
-            }
+            //foreach(Vehicle vehicle in vehicles)
+            //{
+            //    vehicle.Move();
+            //}
 
-            CountNumberOfWheels(vehicles);
+            //CountNumberOfWheels(car);
+
+            string[] names = { "Alice", "Bob", "Charlie" };
+            int[] numbers = { 1, 2, 3, 4, 5 };
+            double[] prices = { 9.99, 19.99, 29.99 };
+
+            Output(names);
+            Output(numbers);
+            Output(prices);
+            Output(cars);
 
             Console.ReadKey();
         }
 
-        public static void CountNumberOfWheels<T>(T[] vehicles)
+
+        public static void CountNumberOfWheels(Vehicle vehicle)
         {
-            foreach (T vehicle in vehicles)
+            Console.WriteLine($"This vehicle has {vehicle.wheels} wheels");
+        }
+
+        public static void Output<T>(T[] items)
+        {
+            foreach(T item in items)
             {
-                Console.WriteLine($"This vehicle has {vehicle} wheels.");
+                Console.WriteLine(item.ToString());
             }
         }
     }
@@ -37,20 +56,24 @@ namespace MyFirstProgram
     {
         private const int maxSpeed = 500;
 
-        protected int wheels = 0;
-
+        public int wheels = 0;
         public abstract void Move();
     }
     
     class Car : Vehicle
     {
-        public Car()
+        public Car(int wheels)
         {
-            this.wheels = 4;
+            this.wheels = wheels;
         }
         public override void Move()
         {
             Console.WriteLine("The car is moving at a speed of 100 km/h.");
+        }
+
+        public override string ToString()
+        {
+            return $"This is a car with {wheels} wheels";
         }
     }
 
