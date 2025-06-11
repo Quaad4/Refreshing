@@ -34,14 +34,7 @@ namespace MyFirstProgram
 
             if(!hasFailed)
             {
-                if(res == 180)
-                {
-                    Console.WriteLine("The angles form a valid triangle.");
-                }
-                else
-                {
-                    Console.WriteLine("The angles do not form a valid triangle.");
-                }
+                Console.WriteLine(res == 180 ? "The angles form a valid triangle." : "The angles do not form a valid triangle.");
             }
             else
             {
