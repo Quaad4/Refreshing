@@ -6,23 +6,35 @@ namespace MyFirstProgram
     {
         private static void Main(string[] args)
         {
-            List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6 };
+            List<int> oddNumbers = new List<int>();
+            List<int> evenNumbers = new List<int>();
 
-            int index = numbers.IndexOf(3);
-
-            if(index >= 0)
+            for(int i = 0; i <= 20; i++)
             {
-                numbers.RemoveAt(index);
-                Console.WriteLine($"Found at index {index}");
-                foreach (int number in numbers)
+                if(i % 2 == 1)
                 {
-                    Console.WriteLine(number);
+                    oddNumbers.Add(i);
+                }
+                else
+                {
+                    evenNumbers.Add(i);
                 }
             }
-            else
+
+            Console.WriteLine("Odd Numbers");
+            foreach(int number in oddNumbers)
             {
-                Console.WriteLine("not found in the list.");
+                Console.WriteLine(number);
             }
+
+            Console.WriteLine("------------");
+            Console.WriteLine("Even Numbers");
+            foreach (int number in evenNumbers)
+            {
+                Console.WriteLine(number);
+            }
+
+            Console.WriteLine("\nPress any key to exit...");
 
             Console.ReadKey();
         }
