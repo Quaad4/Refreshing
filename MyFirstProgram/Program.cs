@@ -6,33 +6,16 @@ namespace MyFirstProgram
     {
         private static void Main(string[] args)
         {
-            List<int> oddNumbers = new List<int>();
-            List<int> evenNumbers = new List<int>();
+            int num = 7;
+            int length = 5;
+            int[] numbers = new int[length];
 
-            for(int i = 0; i <= 20; i++)
+            for(int i = 1; i <= length; i++)
             {
-                if(i % 2 == 1)
-                {
-                    oddNumbers.Add(i);
-                }
-                else
-                {
-                    evenNumbers.Add(i);
-                }
+                numbers[i - 1] = num * i;
             }
 
-            Console.WriteLine("Odd Numbers");
-            foreach(int number in oddNumbers)
-            {
-                Console.WriteLine(number);
-            }
-
-            Console.WriteLine("------------");
-            Console.WriteLine("Even Numbers");
-            foreach (int number in evenNumbers)
-            {
-                Console.WriteLine(number);
-            }
+            Console.WriteLine(string.Join(" ", numbers));
 
             Console.WriteLine("\nPress any key to exit...");
 
