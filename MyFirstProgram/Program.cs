@@ -6,20 +6,40 @@ namespace MyFirstProgram
     {
         private static void Main(string[] args)
         {
-            int num = 7;
-            int length = 5;
-            int[] numbers = new int[length];
-
-            for(int i = 1; i <= length; i++)
-            {
-                numbers[i - 1] = num * i;
-            }
-
-            Console.WriteLine(string.Join(" ", numbers));
-
-            Console.WriteLine("\nPress any key to exit...");
-
+            Book book = new Book("Clean Code", "Robert C. Martin");
+            book.DisplayInfo();
             Console.ReadKey();
         }
+    }
+
+    abstract class LibraryItem
+    {
+        public static int _NextId;
+        public int Id { get; }
+        public string Title { get; set; }
+
+        public LibraryItem(string title)
+        {
+            Id = _NextId++;
+            Title = title;
+        }
+
+        public abstract void DisplayInfo();
+    }
+
+    class Book : LibraryItem
+    {
+        public string Author { get; set; }
+
+        public Book(string title, string author) : base(title)
+        {
+            Author = author;
+        }
+
+        public override void DisplayInfo()
+        {
+            Console.WriteLine($"Book [id: {Id}] - \'{Title}\' by {Author}");
+        }
+
     }
 }
