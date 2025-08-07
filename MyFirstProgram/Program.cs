@@ -7,13 +7,22 @@ namespace MyFirstProgram
         private static void Main(string[] args)
         {
             Book book = new Book("Clean Code", "Robert C. Martin");
-            book.DisplayInfo();
-
             Magazine magazine = new Magazine("The Lord of the Rings", 123);
-            magazine.DisplayInfo();
-
             DVD dvd = new DVD("The Matrix", 160);
-            dvd.DisplayInfo();
+
+            Library library = new Library();
+            library.AddItems([book, magazine, dvd]);
+
+            Console.WriteLine("All Items:");
+            library.ListAllItems();
+
+            Console.WriteLine();
+            Console.WriteLine("Available Items:");
+            library.ListAvailableItems();
+
+            Console.WriteLine();
+            library.FindByTitle("test"); // Expected No Titles found with that name
+            library.FindByTitle("Clean Code");
 
             Console.ReadKey();
         }
@@ -146,5 +155,66 @@ namespace MyFirstProgram
 
         void Borrow(string borrowerName);
         void Return();
+    }
+
+    class Library
+    {
+        private List<LibraryItem> Items = [];
+
+        public void ListAllItems()
+        {
+            foreach(LibraryItem item in Items)
+            {
+                item.DisplayInfo();
+            }
+        }
+
+        public void AddItem(LibraryItem item) 
+        {
+            Items.Add(item);
+        }
+
+        public void AddItems(LibraryItem[] items)
+        {
+            foreach(LibraryItem item in items)
+            {
+                Items.Add(item);
+            }
+        }
+
+        public void ListAvailableItems()
+        {
+            foreach (LibraryItem item in Items)
+            {
+                if (item is IBorrowable borrowableItem)
+                {
+                    if (!borrowableItem.IsBorrowed)
+                    {
+                        item.DisplayInfo();
+                    }
+                }
+                else
+                {
+                    item.DisplayInfo();
+                }
+            }
+        }
+
+        public void FindByTitle(string title)
+        {
+            bool itemFound = false;
+            foreach(LibraryItem item in Items)
+            {
+                if(item.Title.ToLower() == title.Trim().ToLower())
+                {
+                    item.DisplayInfo();
+                    itemFound = true;
+                }
+            }
+            if(!itemFound)
+            {
+                Console.WriteLine("No Titles found with that name");
+            }
+        }
     }
 }
