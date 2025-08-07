@@ -176,10 +176,7 @@ namespace MyFirstProgram
 
         public void AddItems(LibraryItem[] items)
         {
-            foreach(LibraryItem item in items)
-            {
-                Items.Add(item);
-            }
+            Items.AddRange(items);
         }
 
         public void ListAvailableItems()
